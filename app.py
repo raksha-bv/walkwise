@@ -33,7 +33,7 @@ app.secret_key = secret_key
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-config2 = pdfkit.configuration(wkhtmltopdf='C:\\Users\\raksh\\OneDrive\\Desktop\\web\\walkwise\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+# config2 = pdfkit.configuration(wkhtmltopdf='C:\\Users\\raksh\\OneDrive\\Desktop\\web\\walkwise\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
 csp = {
     'default-src': '\'self\'',
     'connect-src': ['\'self\'', 'https://api.example.com'],  # Add your API endpoint here
@@ -435,45 +435,45 @@ def view_cart():
 
     return render_template("cart.html", items=items, total=total)
 
-@app.route("/get_pdf", methods=['POST'])
-def get_pdf():
-    if not current_user.is_authenticated:
-        return render_template('not_log_in.html', message="You need to be logged in to access your cart")
-
-    user = current_user
-    user_cart = user.cart
-    if request.method=="POST":
-        if user_cart is None:
-            user_cart = Cart(user_id=user.id)
-            db.session.add(user_cart)
-            db.session.commit()
-
-        user_cart_items = user_cart.items
-        total = 0
-        items = []
-
-        for item in user_cart_items:
-        # Use db.session.query(cart_items) to get the cover_quantity
-            cart_item = db.session.query(cart_items).filter_by(cart_id=user_cart.id, cover_id=item.id).first()
-            cover_item = {
-                'cover': item,
-                'cover_quantity': cart_item.cover_quantity if cart_item else 0,  # Default to 0 if cart_item is None
-                'image': item.image,
-                'price': item.price,
-                'title': item.title,
-                'model': item.model,
-                'id': item.id
-            }
-            items.append(cover_item)
-            total += int(item.price.split('.')[0]) * cover_item['cover_quantity']
-        invoice = "invoice"
-        rendered = render_template("pdf.html", items=items, total=total)
-        pdf = pdfkit.from_string(rendered, False, configuration=config2)
-        response = make_response(pdf)
-        response.headers['Content-Type'] = 'application/pdf'
-        response.headers['Content-Disposition'] = f'inline; filename={invoice}.pdf'
-
-    return response
+# @app.route("/get_pdf", methods=['POST'])
+# def get_pdf():
+#     if not current_user.is_authenticated:
+#         return render_template('not_log_in.html', message="You need to be logged in to access your cart")
+#
+#     user = current_user
+#     user_cart = user.cart
+#     if request.method=="POST":
+#         if user_cart is None:
+#             user_cart = Cart(user_id=user.id)
+#             db.session.add(user_cart)
+#             db.session.commit()
+#
+#         user_cart_items = user_cart.items
+#         total = 0
+#         items = []
+#
+#         for item in user_cart_items:
+#         # Use db.session.query(cart_items) to get the cover_quantity
+#             cart_item = db.session.query(cart_items).filter_by(cart_id=user_cart.id, cover_id=item.id).first()
+#             cover_item = {
+#                 'cover': item,
+#                 'cover_quantity': cart_item.cover_quantity if cart_item else 0,  # Default to 0 if cart_item is None
+#                 'image': item.image,
+#                 'price': item.price,
+#                 'title': item.title,
+#                 'model': item.model,
+#                 'id': item.id
+#             }
+#             items.append(cover_item)
+#             total += int(item.price.split('.')[0]) * cover_item['cover_quantity']
+#         invoice = "invoice"
+#         rendered = render_template("pdf.html", items=items, total=total)
+#         pdf = pdfkit.from_string(rendered, False, configuration=config2)
+#         response = make_response(pdf)
+#         response.headers['Content-Type'] = 'application/pdf'
+#         response.headers['Content-Disposition'] = f'inline; filename={invoice}.pdf'
+#
+#     return response
 
 @app.route("/delete_item/<int:cover_id>")
 def delete_cover(cover_id):
