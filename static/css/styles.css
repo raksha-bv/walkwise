@@ -434,7 +434,6 @@ body {
 }
 
 
-<<<<<<< HEAD
 .switch {
   position: relative;
   display: inline-block;
@@ -494,6 +493,15 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-=======
-/* input field labels */
->>>>>>> 5ce665df23bbe16d5e25bf3ec5d328dd991efe71
+.parallax {
+  background-image: url("../parallax1.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
