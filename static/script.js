@@ -1,4 +1,3 @@
-
 function hideCreditCardDetails() {
     var creditCardNumber = document.getElementById('cc-number');
     var maskedNumber = creditCardNumber.value.slice(0, -4).replace(/\d/g, '*') + creditCardNumber.value.slice(-4);
@@ -38,8 +37,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-});
-});
-
 });
