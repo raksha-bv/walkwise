@@ -21,10 +21,10 @@ load_dotenv()
 
 app=Flask(__name__,template_folder='templates',static_url_path='/static')
 config = cloudinary.config(secure=True)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://sql6705447:BGH3cdqS6G@sql6.freesqldatabase.com/sql6705447'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.config['SECRET_KEY'] = 'secret-key-goes-here'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=14)
 app.config['REMEMBER_COOKIE_HTTPONLY'] = True
 app.config['REMEMBER_COOKIE_SECURE'] = True
@@ -186,6 +186,9 @@ def home():
     users = results.scalars().all()
     quantity = get_total_quantity()
     return render_template("home.html",quantity=quantity, covers=covers, users=users)
+@app.route("/home", methods=['POST', 'GET'])
+def landing():
+    return render_template("head.html")
 
 @app.route("/reviews",methods=['POST', 'GET'])
 def reviews():
