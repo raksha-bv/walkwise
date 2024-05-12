@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-// Function to hide credit card details
->>>>>>> 5ce665df23bbe16d5e25bf3ec5d328dd991efe71
+
 function hideCreditCardDetails() {
     var creditCardNumber = document.getElementById('cc-number');
     var maskedNumber = creditCardNumber.value.slice(0, -4).replace(/\d/g, '*') + creditCardNumber.value.slice(-4);
@@ -41,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-<<<<<<< HEAD
+
 });
-=======
 });
->>>>>>> 5ce665df23bbe16d5e25bf3ec5d328dd991efe71
+
+});
