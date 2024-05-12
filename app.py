@@ -61,7 +61,6 @@ csp = {
         'https://stackpath.bootstrapcdn.com',
         'https://kit.fontawesome.com',
         'https://cdnjs.cloudflare.com',
-        '{{ url_for("static", filename="script.js") }}'
     ],
     'img-src': [
         '\'self\'',
@@ -71,7 +70,7 @@ csp = {
         '*',
         'https://res.cloudinary.com/dh6qnpost/',
         'https://images.unsplash.com/',
-        '{{ url_for("static", filename="script.js") }}',
+        '{{ url_for("static", filename="script.js") }}'
     ],
     'media-src': ['\'self\'', 'https://res.cloudinary.com/dh6qnpost/'],
     'object-src': '\'none\'',
